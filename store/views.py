@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from store.models import Category
+
 
 def index(request):
-    return render(request, 'store/index.html')
+    context = {'categories': Category.objects.all().order_by('name')}
+    return render(request, 'store/index.html', context)
 
 
 def category(request, slug):
-    return HttpResponse("Category " + slug)
+    slug = slug.lower()
+    context = {'categories': Category.objects.all().order_by('name'),
+               'category': Category.objects.filter(slug=slug).first()}
+    return render(request, 'store/category.html', context)
 
 
 def product(request, slug):
