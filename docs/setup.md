@@ -14,4 +14,4 @@ by adding ```path('store/', include('store.urls'))```
 1. Then add some basic routes and respective views methods, 
 like category and product just to see that urls work properly.
    
-Branch: setup-project
+Branch: startup-project
