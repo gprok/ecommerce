@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+from store.forms import RegisterForm
 from store.models import Category, Product
 
 
@@ -23,3 +24,15 @@ def product(request, slug):
     context = {'categories': Category.objects.all().order_by('name'),
                'product': Product.objects.filter(slug=slug).first()}
     return render(request, 'store/product.html', context)
+
+
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    else:
+        form = RegisterForm()
+    context = {'form': form}
+    return render(request, 'registration/register.html', context)

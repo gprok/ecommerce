@@ -1,0 +1,15 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="post" class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+{% endblock %}

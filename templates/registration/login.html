@@ -1,0 +1,24 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+    {% if form.errors %}
+        <p>Username or Password is wrong.</p>
+    {% endif %}
+
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.username.label_tag }} {{ form.username }}<br>
+        {{ form.password.label_tag }} {{ form.password }}<br>
+        <input type="submit" value="Login">
+    </form>
+    </div>
+    <div>
+        Not have an account? <a href="/store/register">Register</a>
+    </div>
+
+{% endblock %}

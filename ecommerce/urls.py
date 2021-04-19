@@ -21,5 +21,6 @@ import store
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('store/', include('store.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', store.views.index)
 ]
