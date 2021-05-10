@@ -14,4 +14,5 @@ This is a simple application to demonstrate django usage
 1. [Sprint 01](docs/sprint01.md)
 1. [Sprint 02](docs/sprint02.md)
 1. [Sprint 03](docs/sprint03.md)
+1. [Sprint 04](docs/sprint04.md)
 
