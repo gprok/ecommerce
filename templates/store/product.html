@@ -11,5 +11,12 @@
 
     <div>{{ product.description }}</div>
     <div>Price: ${{ product.price }}</div>
-    <div>{% if product.stock > 0 %}Available{% else %}Not Available{% endif %}</div>
+    <div>
+        {% if product.stock > 0 %}
+            Available
+            <a href="/store/add_to_cart/{{ product.id }}"><button>Add to Cart</button></a>
+        {% else %}
+            Not Available
+        {% endif %}
+    </div>
 {% endblock %}

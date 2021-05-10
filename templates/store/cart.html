@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+    {% if items|length == 0 %}
+        <div>Cart is Empty</div>
+    {% else %}
+        {% for item in items %}
+            <div>{{ item.product.name }}: {{ item.quantity }}</div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

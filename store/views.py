@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from store.forms import RegisterForm
-from store.models import Category, Product
+from store.models import Category, Product, Cart, Items
 
 
 def index(request):
@@ -36,3 +36,64 @@ def register(request):
         form = RegisterForm()
     context = {'form': form}
     return render(request, 'registration/register.html', context)
+
+
+def cart(request):
+    txt = ""
+
+    # Find cart in DB
+    session_id = request.session.session_key
+    if not session_id:
+        request.session.create()
+        session_id = request.session.session_key
+
+    try:
+        cart = Cart.objects.get(session_id=session_id)
+    except Cart.DoesNotExist:
+        cart = Cart()
+        cart.session_id = session_id
+        cart.save()
+
+    # Find items of the cart
+    items = Items.objects.filter(cart=cart)
+    for item in items:
+        txt += item.product.slug + ": " + str(item.quantity) + "<br>"
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, 'store/cart.html', context)
+
+
+def add_to_cart(request, product_id):
+    # Open cart or Create cart
+    session_id = request.session.session_key
+    if not session_id:
+        request.session.create()
+        session_id = request.session.session_key
+
+    try:
+        cart = Cart.objects.get(session_id=session_id)
+    except Cart.DoesNotExist:
+        cart = Cart()
+        cart.session_id = session_id
+        cart.save()
+
+    # get item from DB
+    product = Product.objects.get(id=product_id)
+
+    # add item to cart OR increase quantity if already in cart
+    try:
+        item = Items.objects.get(product=product, cart=cart)
+        item.quantity += 1
+        item.save()
+    except Items.DoesNotExist:
+        item = Items()
+        item.cart = cart
+        item.quantity = 1
+        item.product = product
+        item.save()
+
+    # redirect to cart
+    return redirect('/store/cart')
