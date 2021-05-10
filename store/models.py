@@ -24,3 +24,15 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    session_id = models.CharField(max_length=250, blank=True)
+    date_set = models.DateField(auto_now_add=True)
+
+
+class Items(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+
