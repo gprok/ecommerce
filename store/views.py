@@ -61,6 +61,7 @@ def cart(request):
 
     context = {
         'items': items,
+        'categories': Category.objects.all().order_by('name'),
     }
 
     return render(request, 'store/cart.html', context)
@@ -95,5 +96,17 @@ def add_to_cart(request, product_id):
         item.product = product
         item.save()
 
+    # redirect to cart
+    return redirect('/store/cart')
+
+
+def delete_from_cart(request, product_id):
+    print("Deleting Item ", product_id)
+    # 1. Get session id
+    # 2. Get cart from DB
+    # 3. If cart exists,
+    # 4. Find product
+    # 5. Find Item belonging to this cart with this product
+    # 6. If Item exists, Delete Item
     # redirect to cart
     return redirect('/store/cart')

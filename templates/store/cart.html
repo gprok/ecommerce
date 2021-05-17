@@ -7,8 +7,16 @@
         <div>Cart is Empty</div>
     {% else %}
         {% for item in items %}
-            <div>{{ item.product.name }}: {{ item.quantity }}</div>
+            <div>{{ item.product.name }}: {{ item.quantity }}
+            <a href="/store/increase_cart/{{ item.product.id }}">+</a>
+            <a href="/store/decrease_cart/{{ item.product.id }}">-</a>
+            <a href="/store/delete_from_cart/{{ item.product.id }}">X</a>
+            </div>
         {% endfor %}
     {% endif %}
+
+    <div>
+        <a href=""><button>Check Out</button></a>
+    </div>
 
 {% endblock %}
