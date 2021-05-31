@@ -36,3 +36,12 @@ class Items(models.Model):
     quantity = models.IntegerField()
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
+
+class Order(models.Model):
+    email = models.CharField(max_length=120)
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    price = models.DecimalField()
+
