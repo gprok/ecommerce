@@ -113,4 +113,4 @@ def delete_from_cart(request, product_id):
 
 
 def paypal(request):
-    print("Openning paypal connection")
+    print("Openning connection to paypal")
