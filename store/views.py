@@ -110,3 +110,7 @@ def delete_from_cart(request, product_id):
     # 6. If Item exists, Delete Item
     # redirect to cart
     return redirect('/store/cart')
+
+
+def paypal(request):
+    pass
